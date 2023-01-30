@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EmployeeBook {
 
@@ -235,22 +236,9 @@ public class EmployeeBook {
      * присваивается после прохождения валидации в конструкторе.
      */
     public void getAllEmployeesByAllDepartment() {
-        List<Integer> departmentNumbers = new ArrayList<>(Arrays.stream(employees)
+        Arrays.stream(employees)
                 .filter(Objects::nonNull)
-                .map(Employee::getDepartment)
-                .distinct()
-                .sorted()
-                .toList());
-
-        for (Integer department : departmentNumbers) {
-            System.out.println("В отделе №" + department + " работают следующие сотрудники:");
-            for (Employee employee : employees) {
-                if (employee != null) {
-                    if (employee.getDepartment() == department) {
-                        System.out.println(employee);
-                    }
-                }
-            }
-        }
+                .collect(Collectors.groupingBy(Employee::getDepartment))
+                .forEach((key, value) -> System.out.println("В отделе №" + key + " работают следующие сотрудники:" + value));
     }
 }
