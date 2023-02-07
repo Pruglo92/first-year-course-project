@@ -73,12 +73,14 @@ public class EmployeeBook {
 
     public void getAverageSalary() {     //подсчет среднего значения зарплат
         double allSalary = 0;
+        int count = 0;
         for (Employee employee : employees) {
             if (employee != null) {
                 allSalary = allSalary + employee.getSalary();
+                count++;
             }
         }
-        System.out.printf("Зарплата всех сотрудников за месяц составляет: %.2f", allSalary / Employee.getCountId());
+        System.out.printf("Зарплата всех сотрудников за месяц составляет: %.2f", allSalary / count);
         System.out.println();
     }
 
